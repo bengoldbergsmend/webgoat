@@ -3,11 +3,13 @@
 
   <modelVersion>4.0.0</modelVersion>
 
+  <!-- Keep a single Spring Boot parent -->
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
     <version>2.7.1</version>
   </parent>
+
   <groupId>org.owasp.webgoat</groupId>
   <artifactId>webgoat</artifactId>
   <version>2023.4</version>
@@ -108,7 +110,6 @@
   </issueManagement>
 
   <properties>
-
     <!-- Shared properties with plugins and version numbers across submodules-->
     <asciidoctorj.version>2.5.3</asciidoctorj.version>
     <bootstrap.version>3.3.7</bootstrap.version>
@@ -150,13 +151,11 @@
 
   <dependencyManagement>
     <dependencies>
-
       <dependency>
         <groupId>org.ow2.asm</groupId>
         <artifactId>asm</artifactId>
         <version>9.1</version>
       </dependency>
-
       <dependency>
         <groupId>org.apache.commons</groupId>
         <artifactId>commons-exec</artifactId>
@@ -256,6 +255,8 @@
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-exec</artifactId>
     </dependency>
+
+    <!-- Web stack -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-validation</artifactId>
@@ -284,10 +285,25 @@
         </exclusion>
       </exclusions>
     </dependency>
+
+    <!-- Transitive path to actuator bits (kept for Option A) -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
+
+    <!-- Direct paths to the same artifacts (explicitly pinned) -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-actuator-autoconfigure</artifactId>
+      <version>2.7.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-actuator</artifactId>
+      <version>2.7.1</version>
+    </dependency>
+
     <dependency>
       <groupId>org.flywaydb</groupId>
       <artifactId>flyway-core</artifactId>
@@ -373,6 +389,7 @@
       <artifactId>jaxb-runtime</artifactId>
     </dependency>
 
+    <!-- Test deps -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
@@ -487,246 +504,4 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>${maven-surefire-plugin.version}</version>
         <configuration>
-          <argLine>--add-opens java.base/sun.nio.ch=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED
-                        --add-opens java.base/sun.nio.ch=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED
-                        --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED
-                        --add-opens java.base/java.text=ALL-UNNAMED --add-opens java.desktop/java.awt.font=ALL-UNNAMED</argLine>
-          <excludes>
-            <exclude>**/*IntegrationTest.java</exclude>
-            <exclude>src/it/java</exclude>
-            <exclude>org/owasp/webgoat/*Test</exclude>
-          </excludes>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-checkstyle-plugin</artifactId>
-        <version>${checkstyle.version}</version>
-        <configuration>
-          <encoding>UTF-8</encoding>
-          <consoleOutput>true</consoleOutput>
-          <failsOnError>true</failsOnError>
-          <configLocation>config/checkstyle/checkstyle.xml</configLocation>
-          <suppressionsLocation>config/checkstyle/suppressions.xml</suppressionsLocation>
-          <suppressionsFileExpression>checkstyle.suppressions.file</suppressionsFileExpression>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>com.diffplug.spotless</groupId>
-        <artifactId>spotless-maven-plugin</artifactId>
-        <version>2.29.0</version>
-        <configuration>
-          <formats>
-            <format>
-              <includes>
-                <include>.gitignore</include>
-              </includes>
-              <trimTrailingWhitespace></trimTrailingWhitespace>
-              <endWithNewline></endWithNewline>
-              <indent>
-                <tabs>true</tabs>
-                <spacesPerTab>4</spacesPerTab>
-              </indent>
-            </format>
-          </formats>
-          <markdown>
-            <includes>
-              <include>**/*.md</include>
-            </includes>
-            <flexmark></flexmark>
-          </markdown>
-          <java>
-            <includes>
-              <include>src/main/java/**/*.java</include>
-              <include>src/test/java/**/*.java</include>
-              <include>src/it/java/**/*.java</include>
-            </includes>
-            <removeUnusedImports></removeUnusedImports>
-            <googleJavaFormat>
-              <style>GOOGLE</style>
-              <reflowLongStrings>true</reflowLongStrings>
-            </googleJavaFormat>
-          </java>
-          <pom>
-            <sortPom>
-              <encoding>UTF-8</encoding>
-              <lineSeparator>${line.separator}</lineSeparator>
-              <expandEmptyElements>true</expandEmptyElements>
-              <spaceBeforeCloseEmptyElement>false</spaceBeforeCloseEmptyElement>
-              <keepBlankLines>true</keepBlankLines>
-              <nrOfIndentSpace>2</nrOfIndentSpace>
-              <indentBlankLines>false</indentBlankLines>
-              <indentSchemaLocation>false</indentSchemaLocation>
-              <predefinedSortOrder>recommended_2008_06</predefinedSortOrder>
-              <sortProperties>true</sortProperties>
-              <sortModules>true</sortModules>
-              <sortExecutions>true</sortExecutions>
-            </sortPom>
-          </pom>
-        </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>check</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-enforcer-plugin</artifactId>
-        <version>3.0.0</version>
-        <executions>
-          <execution>
-            <id>restrict-log4j-versions</id>
-            <goals>
-              <goal>enforce</goal>
-            </goals>
-            <phase>validate</phase>
-            <configuration>
-              <rules>
-                <bannedDependencies>
-                  <excludes combine.children="append">
-                    <exclude>org.apache.logging.log4j:log4j-core</exclude>
-                  </excludes>
-                </bannedDependencies>
-              </rules>
-              <fail>true</fail>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>17</source>
-          <target>17</target>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
-
-  <profiles>
-    <profile>
-      <id>local-server</id>
-    </profile>
-    <profile>
-      <id>start-server</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>build-helper-maven-plugin</artifactId>
-            <executions>
-              <execution>
-                <id>reserve-container-port</id>
-                <goals>
-                  <goal>reserve-network-port</goal>
-                </goals>
-                <phase>process-resources</phase>
-                <configuration>
-                  <portNames>
-                    <portName>webgoat.port</portName>
-                    <portName>webwolf.port</portName>
-                    <portName>jmxPort</portName>
-                  </portNames>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
-            <groupId>com.bazaarvoice.maven.plugins</groupId>
-            <artifactId>process-exec-maven-plugin</artifactId>
-            <version>0.9</version>
-            <executions>
-              <execution>
-                <id>start-jar</id>
-                <goals>
-                  <goal>start</goal>
-                </goals>
-                <phase>pre-integration-test</phase>
-                <configuration>
-                  <workingDir>${project.build.directory}</workingDir>
-                  <arguments>
-                    <argument>java</argument>
-                    <argument>-jar</argument>
-                    <argument>-Dlogging.pattern.console=</argument>
-                    <argument>-Dwebgoat.server.directory=${java.io.tmpdir}/webgoat_${webgoat.port}</argument>
-                    <argument>-Dwebgoat.user.directory=${java.io.tmpdir}/webgoat_${webgoat.port}</argument>
-                    <argument>-Dspring.main.banner-mode=off</argument>
-                    <argument>-Dwebgoat.port=${webgoat.port}</argument>
-                    <argument>-Dwebwolf.port=${webwolf.port}</argument>
-                    <argument>--add-opens</argument>
-                    <argument>java.base/java.lang=ALL-UNNAMED</argument>
-                    <argument>--add-opens</argument>
-                    <argument>java.base/java.util=ALL-UNNAMED</argument>
-                    <argument>--add-opens</argument>
-                    <argument>java.base/java.lang.reflect=ALL-UNNAMED</argument>
-                    <argument>--add-opens</argument>
-                    <argument>java.base/java.text=ALL-UNNAMED</argument>
-                    <argument>--add-opens</argument>
-                    <argument>java.desktop/java.beans=ALL-UNNAMED</argument>
-                    <argument>--add-opens</argument>
-                    <argument>java.desktop/java.awt.font=ALL-UNNAMED</argument>
-                    <argument>--add-opens</argument>
-                    <argument>java.base/sun.nio.ch=ALL-UNNAMED</argument>
-                    <argument>--add-opens</argument>
-                    <argument>java.base/java.io=ALL-UNNAMED</argument>
-                    <argument>--add-opens</argument>
-                    <argument>java.base/java.util=ALL-UNNAMED</argument>
-                    <argument>${project.build.directory}/webgoat-${project.version}.jar</argument>
-                  </arguments>
-                  <waitForInterrupt>false</waitForInterrupt>
-                  <healthcheckUrl>http://localhost:${webgoat.port}/WebGoat/actuator/health</healthcheckUrl>
-                </configuration>
-              </execution>
-              <execution>
-                <id>stop-jar-process</id>
-                <goals>
-                  <goal>stop-all</goal>
-                </goals>
-                <phase>post-integration-test</phase>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-    <profile>
-      <id>owasp</id>
-      <activation>
-        <activeByDefault>false</activeByDefault>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.owasp</groupId>
-            <artifactId>dependency-check-maven</artifactId>
-            <version>6.5.1</version>
-            <configuration>
-              <failBuildOnCVSS>7</failBuildOnCVSS>
-              <skipProvidedScope>false</skipProvidedScope>
-              <skipRuntimeScope>false</skipRuntimeScope>
-              <suppressionFiles>
-                <!--suppress UnresolvedMavenProperty -->
-                <suppressionFile>${maven.multiModuleProjectDirectory}/config/dependency-check/project-suppression.xml</suppressionFile>
-              </suppressionFiles>
-            </configuration>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>check</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
-
-</project>
+          <argLine>--add-open
