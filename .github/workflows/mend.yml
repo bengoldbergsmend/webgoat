@@ -13,15 +13,13 @@ jobs:
 
         - name: Mend CLI Scan
           env:
-            MEND_EMAIL: test_again@mend.io
-            #${{secrets.MEND_EMAIL_BEN_TEST}}
-            MEND_USER_KEY: 2179fbd4279b4017bc4b2ac52afe29cd94a5f7c59306462383ed75e27d3b1fd9
-            #${{secrets.MEND_EMAIL_BEN_TEST_KEY}}
+            MEND_EMAIL: ${{secrets.MEND_EMAIL_BEN_TEST}}
+            MEND_USER_KEY: ${{secrets.MEND_EMAIL_BEN_TEST_KEY}}
             MEND_URL: https://saas-eu.mend.io
           run: |
             echo Downloading Mend CLI
             curl -LJO https://downloads.mend.io/production/unified/latest/linux_amd64/mend && chmod +x mend 
             echo Start Mend CLI scan
-            ./mend deps -s "beng_demo_gh//BenG//CSM_V1" -r
-            #./mend code -s "beng_demo_gh//BenG//CSM_V1" --snippet-size 0
-            #./mend image ubuntu:latest --scope "beng_demo_gh//BenG//CSM_V1"
+            ./mend dep -u -s "beng_demo_gh//BenG//CSM_V1" -r
+            ./mend code -s "beng_demo_gh//BenG//CSM_V1" --snippet-size 0
+            ./mend image ubuntu:latest --scope "beng_demo_gh//BenG//CSM_V1"
