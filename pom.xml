@@ -287,22 +287,15 @@
     </dependency>
 
     <!-- Transitive path to actuator bits (kept for Option A) -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-actuator</artifactId>
-    </dependency>
-
-    <!-- Direct paths to the same artifacts (explicitly pinned) -->
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-actuator-autoconfigure</artifactId>
-      <version>2.7.1</version>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-actuator</artifactId>
-      <version>2.7.1</version>
-    </dependency>
+    dependency>
++      <groupId>org.springframework.boot</groupId>
++      <artifactId>spring-boot-actuator-autoconfigure</artifactId>
++      <version>2.7.1</version>
++    </dependency>
++    <dependency>
++      <groupId>org.springframework.boot</groupId>
++      <artifactId>spring-boot-actuator</artifactId>
++      <version>2.7.1</version>
 
     <dependency>
       <groupId>org.flywaydb</groupId>
