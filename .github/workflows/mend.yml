@@ -20,6 +20,6 @@ jobs:
             echo Downloading Mend CLI
             curl -LJO https://downloads.mend.io/production/unified/latest/linux_amd64/mend && chmod +x mend 
             echo Start Mend CLI scan
-            ./mend dep -u -s "beng_demo_gh//BenG//CSM_V1" -r
-            ./mend code -s "beng_demo_gh//BenG//CSM_V1" --snippet-size 0
-            ./mend image ubuntu:latest --scope "beng_demo_gh//BenG//CSM_V1"
+            ./mend dep -u -s "beng_demo_gh//BenG//CSM_V2"
+            #./mend code -s "beng_demo_gh//BenG//CSM_V1" --snippet-size 0
+            #./mend image ubuntu:latest --scope "beng_demo_gh//BenG//CSM_V1"
