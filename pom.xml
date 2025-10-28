@@ -12,7 +12,7 @@
 
 <groupId>org.owasp.webgoat</groupId> <artifactId>webgoat</artifactId> <version>2023.4</version> <packaging>jar</packaging>
 
-<name>WebGoat</name> <description>WebGoat, a deliberately insecure Web Application</description> <url>[https://github.com/WebGoat/WebGoat](https://github.com/WebGoat/WebGoat)</url> <inceptionYear>2006</inceptionYear> <organization> <name>OWASP</name> <url>[https://github.com/WebGoat/WebGoat/](https://github.com/WebGoat/WebGoat/)</url> </organization> <licenses> <license> <name>GNU General Public License, version 2</name> <url>[https://www.gnu.org/licenses/gpl-2.0.txt](https://www.gnu.org/licenses/gpl-2.0.txt)</url> </license> </licenses> <developers> <developer> <id>mayhew64</id> <name>Bruce Mayhew</name> <email>[webgoat@owasp.org](mailto:webgoat@owasp.org)</email> <organization>OWASP</organization> <organizationUrl>[https://github.com/WebGoat/WebGoat](https://github.com/WebGoat/WebGoat)</organizationUrl> </developer> <developer> <id>nbaars</id> <name>Nanne Baars</name> <email>[nanne.baars@owasp.org](mailto:nanne.baars@owasp.org)</email> <organizationUrl>[https://github.com/nbaars](https://github.com/nbaars)</organizationUrl> <timezone>Europe/Amsterdam</timezone> </developer> <developer> <id>misfir3</id> <name>Jason White</name> <email>[jason.white@owasp.org](mailto:jason.white@owasp.org)</email> </developer> <developer> <id>zubcevic</id> <name>René Zubcevic</name> <email>[rene.zubcevic@owasp.org](mailto:rene.zubcevic@owasp.org)</email> </developer> <developer> <id>aolle</id> <name>Àngel Ollé Blázquez</name> <email>[angel@olleb.com](mailto:angel@olleb.com)</email> </developer> <developer> <id>jwayman</id> <name>Jeff Wayman</name> <email></email> </developer> <developer> <id>dcowden</id> <name>Dave Cowden</name> <email></email> </developer> <developer> <id>lawson89</id> <name>Richard Lawson</name> <email></email> </developer> <developer> <id>dougmorato</id> <name>Doug Morato</name> <email>[doug.morato@owasp.org](mailto:doug.morato@owasp.org)</email> <organization>OWASP</organization> <organizationUrl>[https://github.com/dougmorato](https://github.com/dougmorato)</organizationUrl> <timezone>America/New_York</timezone> <properties> <picUrl>[https://avatars2.githubusercontent.com/u/9654?v=3&amp;s=150](https://avatars2.githubusercontent.com/u/9654?v=3&amp;s=150)</picUrl> </properties> </developer> </developers>
+<name>WebGoat</name> <description>WebGoat, a deliberately insecure Web Application</description> <url>https://github.com/WebGoat/WebGoat</url> <inceptionYear>2006</inceptionYear> <organization> <name>OWASP</name> <url>https://github.com/WebGoat/WebGoat/</url> </organization> <licenses> <license> <name>GNU General Public License, version 2</name> <url>https://www.gnu.org/licenses/gpl-2.0.txt</url> </license> </licenses> <developers> <developer> <id>mayhew64</id> <name>Bruce Mayhew</name> <email>webgoat@owasp.org</email> <organization>OWASP</organization> <organizationUrl>https://github.com/WebGoat/WebGoat</organizationUrl> </developer> <developer> <id>nbaars</id> <name>Nanne Baars</name> <email>nanne.baars@owasp.org</email> <organizationUrl>https://github.com/nbaars</organizationUrl> <timezone>Europe/Amsterdam</timezone> </developer> <developer> <id>misfir3</id> <name>Jason White</name> <email>jason.white@owasp.org</email> </developer> <developer> <id>zubcevic</id> <name>René Zubcevic</name> <email>rene.zubcevic@owasp.org</email> </developer> <developer> <id>aolle</id> <name>Àngel Ollé Blázquez</name> <email>angel@olleb.com</email> </developer> <developer> <id>jwayman</id> <name>Jeff Wayman</name> <email></email> </developer> <developer> <id>dcowden</id> <name>Dave Cowden</name> <email></email> </developer> <developer> <id>lawson89</id> <name>Richard Lawson</name> <email></email> </developer> <developer> <id>dougmorato</id> <name>Doug Morato</name> <email>doug.morato@owasp.org</email> <organization>OWASP</organization> <organizationUrl>https://github.com/dougmorato</organizationUrl> <timezone>America/New_York</timezone> <properties> <picUrl>https://avatars2.githubusercontent.com/u/9654?v=3&amp;s=150</picUrl> </properties> </developer> </developers>
 
   <mailingLists>
     <mailingList>
@@ -38,7 +38,7 @@
 
   <properties>
 
-```
+ 
 <!-- Shared properties with plugins and version numbers across submodules-->
 <asciidoctorj.version>2.5.3</asciidoctorj.version>
 <bootstrap.version>3.3.7</bootstrap.version>
@@ -76,14 +76,14 @@
 <xstream.version>1.4.5</xstream.version>
 <!-- do not update necessary for lesson -->
 <zxcvbn.version>1.5.2</zxcvbn.version>
-```
+ 
 
   </properties>
 
   <dependencyManagement>
     <dependencies>
 
-```
+ 
   <dependency>
     <groupId>org.ow2.asm</groupId>
     <artifactId>asm</artifactId>
@@ -105,6 +105,11 @@
    <artifactId>spring-boot-actuator</artifactId>
    <version>2.7.1</version>
  </dependency>
+  <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-autoconfigure</artifactId>
+    <version>2.7.1</version>
+  </dependency>
 
   <dependency>
     <groupId>org.apache.commons</groupId>
@@ -198,7 +203,7 @@
     <version>9.3.6.0</version>
   </dependency>
 </dependencies>
-```
+ 
 
   </dependencyManagement>
 
@@ -240,7 +245,7 @@
       <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
 
-```
+ 
 <!-- BEGIN: direct deps so scanners see two paths (direct + transitive) -->
 <dependency>
   <groupId>org.springframework.boot</groupId>
@@ -250,6 +255,11 @@
 <dependency>
   <groupId>org.springframework.boot</groupId>
   <artifactId>spring-boot-actuator</artifactId>
+  <version>2.7.1</version>
+</dependency>
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-autoconfigure</artifactId>
   <version>2.7.1</version>
 </dependency>
 <!-- END: direct deps -->
@@ -359,7 +369,6 @@
   <artifactId>rest-assured</artifactId>
   <scope>test</scope>
 </dependency>
-```
 
   </dependencies>
 
